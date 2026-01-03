@@ -6,19 +6,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is the `mak-lab` repository - a private experimental/learning repository for development projects.
 
-## Current Project: Todo App
+## Projects
+
+### Todo App (`todo/`)
 
 A vanilla JavaScript todo application with CRUD operations, filtering, priority levels, and localStorage persistence.
 
-### Running the App
+#### Running the App
 
-Simply open `index.html` in a web browser. No build process or dependencies required.
+Simply open `todo/index.html` in a web browser. No build process or dependencies required.
 
-### Project Structure
+#### Project Structure
 
-- `index.html` - Main HTML structure with input form, filter buttons, and todo list
-- `styles.css` - Modern, gradient-based UI with priority color coding
-- `app.js` - TodoApp class managing state, localStorage, and DOM manipulation
+- `todo/index.html` - Main HTML structure with input form, filter buttons, and todo list
+- `todo/styles.css` - Modern, gradient-based UI with priority color coding
+- `todo/app.js` - TodoApp class managing state, localStorage, and DOM manipulation
+- `todo/README.md` - Project documentation
 
 ### Architecture
 
