@@ -1,84 +1,90 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+このファイルは、Claude Code (claude.ai/code) がこのリポジトリで作業する際のガイダンスを提供します。
 
-## Repository Overview
+## リポジトリ概要
 
-This is the `mak-lab` repository - a private experimental/learning repository for development projects.
+`mak-lab` - 開発プロジェクトの実験・学習用プライベートリポジトリ
 
-## Projects
+## プロジェクト一覧
 
-### Todo App (`todo/`)
+### 📝 Todoアプリ (Vanilla JS版) - `todo/`
 
-A vanilla JavaScript todo application with CRUD operations, filtering, priority levels, and localStorage persistence.
+Vanilla JavaScriptで作成されたシンプルなTodoアプリケーション。CRUD操作、フィルタリング、優先度設定、localStorageによる永続化機能を実装。
 
-#### Running the App
+#### 🚀 実行方法
 
-Simply open `todo/index.html` in a web browser. No build process or dependencies required.
+ブラウザで `todo/index.html` を開くだけ。ビルドプロセスや依存関係のインストールは不要。
 
-#### Project Structure
+#### 📁 ファイル構成
 
-- `todo/index.html` - Main HTML structure with input form, filter buttons, and todo list
-- `todo/styles.css` - Modern, gradient-based UI with priority color coding
-- `todo/app.js` - TodoApp class managing state, localStorage, and DOM manipulation
-- `todo/README.md` - Project documentation
+- `todo/index.html` - メインHTML（入力フォーム、フィルターボタン、タスクリスト）
+- `todo/styles.css` - モダンなグラデーションUI、優先度別カラーコーディング
+- `todo/app.js` - TodoAppクラスによる状態管理、localStorage、DOM操作
+- `todo/README.md` - プロジェクトドキュメント
 
-### Architecture
+#### 🏗️ アーキテクチャ
 
-**Class-based Design**: The app uses a single `TodoApp` class that encapsulates all functionality.
+**クラスベース設計**
+単一の `TodoApp` クラスですべての機能をカプセル化。
 
-**Data Model**: Each todo object contains:
-- `id`: Unique timestamp-based identifier
-- `text`: Task description
-- `completed`: Boolean status
-- `priority`: 'high' | 'medium' | 'low'
-- `createdAt`: ISO timestamp
+**データモデル**
+各todoオブジェクトの構造：
+- `id`: タイムスタンプベースの一意識別子
+- `text`: タスクの説明
+- `completed`: 完了状態（boolean）
+- `priority`: 優先度 ('high' | 'medium' | 'low')
+- `createdAt`: ISO形式のタイムスタンプ
 
-**State Management**:
-- Todos stored in class instance (`this.todos`)
-- Automatically persisted to localStorage on every change
-- Current filter state (`all`, `active`, `completed`) tracked separately
+**状態管理**
+- クラスインスタンス内でtodosを管理 (`this.todos`)
+- 変更のたびにlocalStorageへ自動保存
+- フィルター状態 (`all`, `active`, `completed`) を別途管理
 
-**Rendering**: Full re-render approach - entire todo list is rebuilt from state on each change. Event listeners are re-attached after each render.
+**レンダリング**
+完全再レンダリング方式 - 状態変更のたびにtodoリスト全体を再構築。イベントリスナーは再レンダリング後に再アタッチ。
 
-### Todo App - Next.js (`todo-next/`)
+---
 
-A modern todo application built with Next.js 16, TypeScript, and Tailwind CSS using the App Router.
+### 📝 Todoアプリ (Next.js版) - `todo-next/`
 
-#### Running the App
+Next.js 16、TypeScript、Tailwind CSSで構築されたモダンなTodoアプリケーション。App Routerを使用。
 
+#### 🚀 実行方法
+
+**開発サーバー起動**
 ```bash
 cd todo-next
 npm run dev
 ```
+その後、http://localhost:3000 にアクセス
 
-Then open http://localhost:3000
-
-#### Build for Production
-
+**本番ビルド**
 ```bash
 npm run build
 npm start
 ```
 
-#### Tech Stack
+#### 🛠️ 技術スタック
 
-- **Next.js 16** - React framework with App Router
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first CSS framework
-- **React Hooks** - State management with useState/useEffect
+- **Next.js 16** - App Router搭載のReactフレームワーク
+- **TypeScript** - 型安全な開発環境
+- **Tailwind CSS** - ユーティリティファーストCSSフレームワーク
+- **React Hooks** - useState/useEffectによる状態管理
 
-#### Project Structure
+#### 📁 ファイル構成
 
-- `app/page.tsx` - Main todo application component (Client Component)
-- `app/layout.tsx` - Root layout with metadata and fonts
-- `app/globals.css` - Global styles and Tailwind directives
+- `app/page.tsx` - メインTodoアプリコンポーネント（クライアントコンポーネント）
+- `app/layout.tsx` - ルートレイアウト（メタデータ、フォント設定）
+- `app/globals.css` - グローバルスタイル、Tailwindディレクティブ
 
-#### Architecture
+#### 🏗️ アーキテクチャ
 
-**Client-Side Rendering**: Uses `'use client'` directive for interactive features.
+**クライアントサイドレンダリング**
+インタラクティブ機能のために `'use client'` ディレクティブを使用。
 
-**Data Model**: Same as vanilla version - TypeScript interfaces ensure type safety:
+**データモデル**
+Vanilla版と同様、TypeScriptインターフェースで型安全性を確保：
 ```typescript
 interface Todo {
   id: number;
@@ -86,16 +92,60 @@ interface Todo {
   completed: boolean;
   priority: 'low' | 'medium' | 'high';
   createdAt: string;
+  dueDate?: string; // 期限（オプション）
 }
 ```
 
-**State Management**:
-- React useState for todo list, input, filter, and priority
-- useEffect for localStorage sync (with hydration mismatch prevention)
-- Separate localStorage key (`todos-next`) to avoid conflicts with vanilla version
+**状態管理**
+- React useStateでtodoリスト、入力、フィルター、優先度を管理
+- useEffectでlocalStorage同期（ハイドレーションミスマッチ防止機能付き）
+- Vanilla版との競合を避けるため、別のlocalStorageキー (`todos-next`) を使用
 
-**Styling**: Tailwind CSS with:
-- Gradient background (purple theme)
-- Priority-based color coding (red/orange/green)
-- Responsive design
-- Smooth transitions and hover effects
+**スタイリング**
+Tailwind CSSによる実装：
+- グラデーション背景（紫テーマ）
+- 優先度別カラーコーディング（赤/オレンジ/緑）
+- レスポンシブデザイン
+- スムーズなトランジションとホバーエフェクト
+
+**期限機能**
+- オプションの期限日設定
+- ステータス別の視覚的表示：
+  - 🔴 期限超過（赤バッジ）
+  - 🟡 今日が期限（黄バッジ）
+  - 🔵 近日中（青バッジ、3日以内）
+- 日本語での分かりやすい日付表示（「今日」「明日」「X日後」「X日超過」）
+
+#### 🌐 デプロイ
+
+**Vercel本番環境**
+https://todo-next-eight-zeta.vercel.app
+
+**デプロイ方法**
+```bash
+cd todo-next
+vercel --prod
+```
+
+---
+
+## 📚 共通情報
+
+### 開発時の注意点
+
+1. **localStorage**
+   - Vanilla版: `todos` キー
+   - Next.js版: `todos-next` キー
+   - 両バージョンは独立して動作
+
+2. **優先度システム**
+   両バージョンで共通の3段階優先度：
+   - 高 (high): 赤色
+   - 中 (medium): オレンジ色
+   - 低 (low): 緑色
+
+3. **フィルタリング**
+   両バージョンで共通の3種類のフィルター：
+   - すべて (all)
+   - 未完了 (active)
+   - 完了 (completed)
