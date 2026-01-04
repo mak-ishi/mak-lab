@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+// 会話モデル
+model Conversation {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  title     String    @default("新しい会話")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+
+  @@map("conversations")
+  @@index([updatedAt(sort: Desc)])
+  @@index([createdAt(sort: Desc)])
+}
+
+// メッセージモデル
+model Message {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  conversationId String       @db.ObjectId
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           String       // 'user' | 'assistant'
+  content        String
+  attachments    Json?        // ファイルアップロード情報（オプショナル）
+  createdAt      DateTime     @default(now())
+
+  @@map("messages")
+  @@index([conversationId])
+  @@index([createdAt(sort: Desc)])
+  @@index([conversationId, createdAt(sort: Desc)])
+}
