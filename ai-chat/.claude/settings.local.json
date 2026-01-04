@@ -14,7 +14,9 @@
       "Bash(grep:*)",
       "Bash(dir /b scripts*.js start-secure.* API_KEY_SETUP.md)",
       "Bash(ls:*)",
-      "Bash(mongosh:*)"
+      "Bash(mongosh:*)",
+      "Bash(vercel --prod --yes:*)",
+      "Bash(vercel login)"
     ]
   }
 }

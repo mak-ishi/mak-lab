@@ -12,7 +12,38 @@ Google Gemini APIを使用したAIチャットボットアプリケーション
 - **Mastra** - AIエージェントフレームワーク
 - **Google Gemini API** - AI推論エンジン
 
-## 📦 セットアップ
+## ⚡ クイックスタート（Makefile使用）
+
+プロジェクトにはMakefileが含まれており、開発・デプロイのコマンドを簡単に実行できます。
+
+### 初回セットアップ
+
+```bash
+# 完全セットアップ（依存関係 + Prisma初期化）
+make setup
+
+# 環境変数を設定
+cp .env.example .env
+# .env を編集して必要な値を設定
+
+# 開発サーバー起動
+make dev
+```
+
+### よく使うコマンド
+
+```bash
+make help              # すべてのコマンドを表示
+make dev               # 開発サーバー起動
+make build             # 本番ビルド
+make test              # テスト実行
+make deploy            # Vercelにデプロイ
+make prisma-studio     # Prisma Studio起動
+```
+
+詳細は [MAKEFILE_GUIDE.md](./MAKEFILE_GUIDE.md) を参照してください。
+
+## 📦 セットアップ（手動）
 
 ### 1. リポジトリのクローンと依存関係のインストール
 
@@ -97,11 +128,35 @@ npx prisma generate
 現在の状況：
 - ✅ フェーズ1: プロジェクト初期設定
 - ✅ フェーズ2: データベースとPrisma設定
-- 🚧 フェーズ3以降を実装中
+- ✅ フェーズ3: Chakra UIとテーマ設定
+- ✅ フェーズ4: UIコンポーネント開発
+- ✅ フェーズ5: バックエンドAPI開発
+- ✅ フェーズ6: Mastra + Gemini API統合
+- ✅ フェーズ7: ストリーミング応答実装
+- ✅ フェーズ8: ファイルアップロード機能
+- ✅ フェーズ9: 会話エクスポート機能
+- ✅ フェーズ10: メインページ統合
+- ✅ フェーズ11: スタイリングと仕上げ
+- ✅ フェーズ12: テストとデバッグ
+- ✅ フェーズ13: デプロイ準備
+- 🚧 フェーズ14: ドキュメント整備
 
 ## 🌐 デプロイ
 
-### Vercelへのデプロイ
+### Makefileを使用（推奨）
+
+```bash
+# Vercelにログイン
+make vercel-login
+
+# 本番デプロイ
+make deploy
+
+# または完全デプロイフロー（lint + test + build + deploy）
+make workflow-deploy
+```
+
+### Vercel CLIを直接使用
 
 ```bash
 # Vercel CLIをインストール
@@ -111,11 +166,16 @@ npm i -g vercel
 vercel --prod
 ```
 
-環境変数（`GEMINI_API_KEY`、`DATABASE_URL`）をVercel Dashboardで設定してください。
+環境変数（`GOOGLE_GENERATIVE_AI_API_KEY`、`DATABASE_URL`、`NEXT_PUBLIC_APP_URL`）をVercel Dashboardで設定してください。
+
+**詳細なデプロイ手順は [DEPLOYMENT.md](./DEPLOYMENT.md) を参照してください。**
 
 ## 📚 ドキュメント
 
-詳細な仕様とアーキテクチャについては [CLAUDE.md](./CLAUDE.md) を参照してください。
+- **[CLAUDE.md](./CLAUDE.md)** - 詳細な仕様とアーキテクチャ
+- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - デプロイ手順（MongoDB Atlas、Vercel）
+- **[MAKEFILE_GUIDE.md](./MAKEFILE_GUIDE.md)** - Makefileコマンドリファレンス
+- **[TODO.md](./TODO.md)** - 開発進捗状況
 
 ## 🐛 トラブルシューティング
 
